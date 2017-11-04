@@ -27,17 +27,11 @@ class DeckList extends Component {
       .then((decks) => {
         dispatch(receiveDecks(decks))
       })
-      // .then(() => this.setState(() => ({ready: true})))
   }
 
   renderItem = (item) => {
-    console.log('item: ', item)
     return <DeckListCard {...item} />
   }
-
-  // renderItem = () => (
-  //   <View>This should be a card</View>
-  // )
 
   keyExtractor = (item, index) => item.title;
 
@@ -45,23 +39,15 @@ class DeckList extends Component {
     const { decks } = this.props
     const { ready } = this.state
 
-    // if (ready === true) {
-    //   return <AppLoading />
-    // }
-
-
-
     if (ready === false) {
       return <AppLoading />
     }
-    // console.log('deckkkkkkk: ', values(decks))
+
     return (
       <View style={styles.container}>
-        <Text>ready?</Text>
         <FlatList
           data={values(decks)}
           renderItem={this.renderItem}
-          // renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
         />
       </View>

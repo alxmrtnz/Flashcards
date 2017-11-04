@@ -1,3 +1,5 @@
+// NEXT STEPS: add mainnavigator into here to wrap tab nav and export that into app.js so we can navigate to a deck details view
+
 import React from 'react'
 import { View, StatusBar, Platform } from 'react-native'
 
