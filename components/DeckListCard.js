@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 export default class DeckListCard extends React.Component {
 
@@ -7,14 +7,21 @@ export default class DeckListCard extends React.Component {
     let { title, questions } = this.props
 
     return (
-      <View style={styles.deckListCard} >
+      <TouchableOpacity
+        style={styles.deckListCard}
+        onPress={() => {console.log('deck card pressed')}}
+        // onPress={() => this.props.navigation.navigate(
+        //   'EntryDetail',
+        //   { entryId: key }
+        // )}
+      >
         <Text style={styles.deckListCardTitle}>
           {title}
         </Text>
         <Text style={styles.deckListCardSubTitle}>
           {questions.length + (questions.length === 1 ? ' card' : ' cards')}
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

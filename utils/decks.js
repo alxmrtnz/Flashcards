@@ -1,5 +1,7 @@
-const decks = [
-  {
+export const DECK_STORAGE_KEY = 'Flashcarfds:decks'
+
+const decks = {
+  React: {
     title: 'React',
     questions: [
       {
@@ -11,7 +13,8 @@ const decks = [
         answer: 'The componentDidMount lifecycle event'
       }
     ]
-  },{
+  },
+  JavaScript: {
     title: 'JavaScript',
     questions: [
       {
@@ -20,7 +23,7 @@ const decks = [
       }
     ]
   }
-]
+}
 
 export default function getDecks () {
   return decks

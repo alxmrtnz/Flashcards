@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { connect } from 'react-redux'
+import { AppLoading } from 'expo'
 
 // Components
 import DeckListCard from '../components/DeckListCard'
 
 // Data
-import getDecks from '../data/decks'
+// import getDecks from '../utils/decks'
+import { fetchDecks } from '../utils/api'
+import { receiveDecks } from '../actions'
 
-export default class DeckList extends React.Component {
+class DeckList extends Component {
+
+  state = {
+    ready: false
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props
+
+    fetchDecks()
+      .then((decks) => {
+          console.log('receive: ', decks)
+        // this.setState(() => ({ready: true}))
+        dispatch(receiveDecks(decks))
+      })
+      .then(() => this.setState(() => ({ready: true})))
+  }
+
   renderItem = ({ item }) => {
     return <DeckListCard {...item} />
   }
@@ -15,8 +36,14 @@ export default class DeckList extends React.Component {
   _keyExtractor = (item, index) => item.title;
 
   render() {
-    // let { decks } = this.state
-    const decks = getDecks()
+    const { decks } = this.props
+    const { ready } = this.state
+
+    console.log('render deck list: ', decks)
+
+    if (ready === false) {
+      return <AppLoading />
+    }
 
     return (
       <View style={styles.container}>
@@ -25,7 +52,6 @@ export default class DeckList extends React.Component {
           renderItem={this.renderItem}
           keyExtractor={this._keyExtractor}
         />
-
       </View>
     );
   }
@@ -37,3 +63,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+function mapStateToProps ( decks ) {
+  return {
+    decks
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(DeckList)
