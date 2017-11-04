@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { AppLoading } from 'expo'
 
+// Packages
+import values from 'lodash.values'
+
 // Components
 import DeckListCard from '../components/DeckListCard'
 
@@ -14,7 +17,7 @@ import { receiveDecks } from '../actions'
 class DeckList extends Component {
 
   state = {
-    ready: false
+    ready: true
   }
 
   componentDidMount() {
@@ -22,35 +25,44 @@ class DeckList extends Component {
 
     fetchDecks()
       .then((decks) => {
-          console.log('receive: ', decks)
-        // this.setState(() => ({ready: true}))
         dispatch(receiveDecks(decks))
       })
-      .then(() => this.setState(() => ({ready: true})))
+      // .then(() => this.setState(() => ({ready: true})))
   }
 
-  renderItem = ({ item }) => {
+  renderItem = (item) => {
+    console.log('item: ', item)
     return <DeckListCard {...item} />
   }
 
-  _keyExtractor = (item, index) => item.title;
+  // renderItem = () => (
+  //   <View>This should be a card</View>
+  // )
+
+  keyExtractor = (item, index) => item.title;
 
   render() {
     const { decks } = this.props
     const { ready } = this.state
 
-    console.log('render deck list: ', decks)
+    // if (ready === true) {
+    //   return <AppLoading />
+    // }
+
+
 
     if (ready === false) {
       return <AppLoading />
     }
-
+    // console.log('deckkkkkkk: ', values(decks))
     return (
       <View style={styles.container}>
+        <Text>ready?</Text>
         <FlatList
-          data={decks}
+          data={values(decks)}
           renderItem={this.renderItem}
-          keyExtractor={this._keyExtractor}
+          // renderItem={this.renderItem}
+          keyExtractor={this.keyExtractor}
         />
       </View>
     );

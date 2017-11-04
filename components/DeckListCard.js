@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 export default class DeckListCard extends React.Component {
 
   render() {
-    let { title, questions } = this.props
-
+    let { title, questions } = this.props.item
+    console.log('deck list CARD')
     return (
       <TouchableOpacity
         style={styles.deckListCard}
