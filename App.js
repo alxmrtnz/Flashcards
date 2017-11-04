@@ -10,10 +10,11 @@ import { purple, white } from './utils/colors'
 
 
 export default class App extends React.Component {
+
   render() {
     return (
       <View style={{flex: 1}}>
-        <FlashStatusBar backgroundColor={purple} />
+        <FlashStatusBar backgroundColor={purple} barStyle="light-content" />
         <FlashTabNavigator />
       </View>
     );

@@ -2,32 +2,32 @@ import React from 'react'
 import { View, StatusBar, Platform } from 'react-native'
 
 // Screens
-import History from '../screens/History'
+import DeckList from '../screens/DeckList'
 import AddEntry from '../screens/AddEntry'
 
 // Navigation
 import { TabNavigator } from 'react-navigation'
 
 // Assets
-import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 // Utils
 import { purple, white } from '../utils/colors'
 
 
 const Tabs = TabNavigator({
-  History: {
-    screen: History,
+  DeckList: {
+    screen: DeckList,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='cards-playing-outline' size={30} color={tintColor} />
     },
   },
   AddEntry: {
     screen: AddEntry,
     navigationOptions: {
       tabBarLabel: 'New Deck',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <MaterialIcons name='library-add' size={30} color={tintColor} />
     },
   },
 }, {
