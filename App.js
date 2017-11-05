@@ -14,26 +14,6 @@ import MainNavigator from './components/MainNavigator'
 import { purple, white } from './utils/colors'
 import getDecks from './utils/decks'
 
-// const defaultState = {
-//   ...getDecks()
-// };
-
-// function configureStore(initialState) {
-//   const store = createStore(reducer, initialState);
-
-//   if (module.hot) {
-//     // Enable Webpack hot module replacement for reducers
-//     module.hot.accept('./reducers', () => {
-//       const nextRootReducer = require('./reducers/index');
-//       store.replaceReducer(nextRootReducer);
-//     });
-//   }
-
-//   return store;
-// }
-
-// let store = configureStore(defaultState);
-
 let store = createStore(reducer)
 
 export default class App extends React.Component {

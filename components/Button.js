@@ -3,10 +3,6 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { purple, white } from '../utils/colors'
 
 export default class Button extends React.Component {
-// export default function Button ({ children, onPress, style = {}, buttonAlt }) {
-
-
-  // console.log('alt: ', buttonAlt)
   render() {
     let { children, onPress, buttonAlt } = this.props
 

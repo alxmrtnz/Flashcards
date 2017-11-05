@@ -13,7 +13,7 @@ class IndividualDeck extends Component {
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params
     return {
-      title: `Deck: ${deckId}`
+      title: deckId
     }
   }
 
@@ -22,15 +22,9 @@ class IndividualDeck extends Component {
   }
 
   render() {
-    const { decks, deck } = this.props
-    // const { deckId } = navigation.state.params
+    const { decks, deck, navigation } = this.props
 
-    console.log('props for detail: ', this.props)
-    // console.log('decks: ', decks[deckId])
-
-    // let currentDeck = Object.keys(decks).filter(function(deck, index) {
-    //    myObject[key] *= 2;
-    // });
+    console.log('deck view props: ', this.props)
 
     return (
       <View style={styles.container}>
@@ -45,10 +39,10 @@ class IndividualDeck extends Component {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <Button>
+          <Button buttonAlt={true}>
             Add Card
           </Button>
-          <Button buttonAlt={true}>
+          <Button onPress={() => navigation.navigate('QuizView', {deckId: deck.title})}>
             Start Quiz
           </Button>
         </View>
@@ -61,7 +55,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // justifyContent: 'space-between'
   },
   button: {
     padding: 10,
@@ -83,13 +76,13 @@ const styles = StyleSheet.create({
   },
   deckInfo: {
     flex: 3,
+    justifyContent: 'center'
   },
   deckInfoContent: {
     alignItems: 'center'
   },
   buttonContainer: {
     padding: 20,
-    // paddingRight: 20,
     flex: 1,
   },
 });
@@ -97,17 +90,13 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (decks, { navigation }) {
   const { deckId } = navigation.state.params
-
-  // let filteredDeck = decks.filter((deck) =>  {
-  //   return deck.title === deckId;
-  // });
-
-  console.log('ugh: ', decks[deckId])
+  // const navigation = navigation
 
   return {
     decks,
     deckId,
     deck: decks[deckId],
+    navigation
   }
 }
 

@@ -7,6 +7,7 @@ import { View, StatusBar, Platform } from 'react-native'
 import DeckList from '../screens/DeckList'
 import AddEntry from '../screens/AddEntry'
 import IndividualDeck from '../screens/IndividualDeck'
+import QuizView from '../screens/QuizView'
 
 // Navigation
 import { TabNavigator, StackNavigator } from 'react-navigation'
@@ -59,6 +60,15 @@ const AppNavigation = StackNavigator({
   },
   IndividualDeck: {
     screen: IndividualDeck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
+  QuizView: {
+    screen: QuizView,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

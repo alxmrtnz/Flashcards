@@ -35,10 +35,6 @@ class DeckList extends Component {
   }
 
   renderItem = (item) => {
-
-    console.log(item);
-    console.log(arguments);
-
     return <DeckListCard {...item} handlePress={(result) => this.navigateFromListCard(result)} />
   }
 
@@ -47,8 +43,6 @@ class DeckList extends Component {
   render() {
     const { decks } = this.props
     const { ready } = this.state
-
-    console.log(this.props);
 
     if (ready === false) {
       return <AppLoading />
