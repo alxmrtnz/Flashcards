@@ -17,7 +17,7 @@ import { receiveDecks } from '../actions'
 class DeckList extends Component {
 
   state = {
-    ready: true
+    ready: false
   }
 
   componentDidMount() {
@@ -27,10 +27,10 @@ class DeckList extends Component {
       .then((decks) => {
         dispatch(receiveDecks(decks))
       })
+      .then(() => this.setState(() => ({ready: true})))
   }
 
   navigateFromListCard = (destination) => {
-    console.log('destination: ', destination[0], ' ', destination[1])
     this.props.navigation.navigate(destination[0], {deckId: destination[1]})
   }
 

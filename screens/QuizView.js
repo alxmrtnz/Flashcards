@@ -53,19 +53,28 @@ class QuizView extends Component {
     })
   }
 
-  submitAnswer = (event, type) => {
-    let { currentSlide, displayQuestion, numberOfQuestions } = this.state
-    // console.log(type, ' button pressed: ', numberOfQuestions)
+  submitAnswer = (type) => {
+    let { currentSlide, displayQuestion, numberOfQuestions, questionsCorrect } = this.state
+
+    let newQuestionsCorrect = questionsCorrect
+
+    if (type === 'True') {
+      newQuestionsCorrect += 1
+    }
+
+    console.log(' type: ', type, 'new correct: ', newQuestionsCorrect)
 
     this.setState((state) => {
       return (currentSlide + 1) === numberOfQuestions
       ? {
           ...state,
-          displayResults: true
+          displayResults: true,
+          questionsCorrect: newQuestionsCorrect
         }
       : {
           ...state,
-          currentSlide: currentSlide + 1
+          currentSlide: currentSlide + 1,
+          questionsCorrect: newQuestionsCorrect
         }
     })
   }
@@ -73,18 +82,29 @@ class QuizView extends Component {
   getResults() {
     let { questionsCorrect, numberOfQuestions } = this.state
 
-    let percentage = questionsCorrect / numberOfQuestions
+    let percentage = (questionsCorrect / numberOfQuestions) * 100
 
     return (
       <View style={styles.questionAnswerContainer}>
-        <Text>
+        <Text style={{fontSize: 18, textAlign: 'center', marginBottom: 10}}>
           Your Score:
         </Text>
-        <Text style={styles.questionAnswerText}>
+        <Text style={{fontSize: 40, fontWeight: 'bold', textAlign: 'center'}}>
           {percentage} %
         </Text>
       </View>
     )
+  }
+
+  resetQuiz = () => {
+    this.setState((state) => {
+      return {
+        ...state,
+        currentSlide: 0,
+        questionsCorrect: 0,
+        displayResults: false
+      }
+    })
   }
 
   render() {
@@ -101,10 +121,15 @@ class QuizView extends Component {
         {this.getResults()}
 
         <View style={styles.answerButtonsContainer}>
-          <Button buttonAlt={true}>
+          <Button
+            buttonAlt={true}
+            onPress={this.resetQuiz}
+          >
             Try again
           </Button>
-          <Button>
+          <Button
+            onPress={() => this.props.navigation.goBack()}
+          >
             Finish
           </Button>
         </View>
@@ -138,7 +163,7 @@ class QuizView extends Component {
         <View style={styles.answerButtonsContainer}>
           <TouchableOpacity
             style={styles.buttonGreen}
-            onPress={(event) => this.submitAnswer(event, 'hello')}
+            onPress={() => this.submitAnswer('True')}
           >
             <Text
             style={styles.buttonText}
@@ -148,7 +173,7 @@ class QuizView extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonRed}
-            // onPress={this.submitAnswer('incorrect')}
+            onPress={() => this.submitAnswer('False')}
           >
             <Text
             style={styles.buttonText}
