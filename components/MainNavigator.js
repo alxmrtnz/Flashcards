@@ -6,9 +6,10 @@ import { View, StatusBar, Platform } from 'react-native'
 // Screens
 import DeckList from '../screens/DeckList'
 import AddEntry from '../screens/AddEntry'
+import IndividualDeck from '../screens/IndividualDeck'
 
 // Navigation
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 
 // Assets
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -52,11 +53,26 @@ const Tabs = TabNavigator({
   }
 })
 
+const AppNavigation = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  IndividualDeck: {
+    screen: IndividualDeck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  }
+})
 
-export default class FlashTabNavigator extends React.Component {
+
+export default class MainNavigator extends React.Component {
   render() {
     return (
-      <Tabs />
+      <AppNavigation />
     );
   }
 }

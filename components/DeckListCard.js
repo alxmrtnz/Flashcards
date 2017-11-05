@@ -4,16 +4,14 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 export default class DeckListCard extends React.Component {
 
   render() {
-    let { title, questions } = this.props.item
-    console.log('deck list CARD')
+    let { title, questions, index } = this.props.item
+    console.log('props for deck card: ', this.props)
+
     return (
       <TouchableOpacity
         style={styles.deckListCard}
-        onPress={() => {console.log('deck card pressed')}}
-        // onPress={() => this.props.navigation.navigate(
-        //   'EntryDetail',
-        //   { entryId: key }
-        // )}
+        // For some reason, I can only pass one property back to handle press (so i had to make it into an array in order to have more than one)
+        onPress={() => this.props.handlePress(['IndividualDeck', title])}
       >
         <Text style={styles.deckListCardTitle}>
           {title}

@@ -8,7 +8,7 @@ import reducer from './reducers'
 
 // Components
 import FlashStatusBar from './components/FlashStatusBar'
-import FlashTabNavigator from './components/FlashTabNavigator'
+import MainNavigator from './components/MainNavigator'
 
 // Utils
 import { purple, white } from './utils/colors'
@@ -21,7 +21,7 @@ export default class App extends React.Component {
       <Provider store={createStore(reducer)}>
         <View style={{flex: 1}}>
           <FlashStatusBar backgroundColor={purple} barStyle="light-content" />
-          <FlashTabNavigator />
+          <MainNavigator />
         </View>
       </Provider>
     );

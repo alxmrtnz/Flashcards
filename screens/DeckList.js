@@ -29,8 +29,13 @@ class DeckList extends Component {
       })
   }
 
+  navigateFromListCard = (destination) => {
+    console.log('destination: ', destination[0], ' ', destination[1])
+    this.props.navigation.navigate(destination[0], {deckId: destination[1]})
+  }
+
   renderItem = (item) => {
-    return <DeckListCard {...item} />
+    return <DeckListCard {...item} handlePress={(result) => this.navigateFromListCard(result)} />
   }
 
   keyExtractor = (item, index) => item.title;
