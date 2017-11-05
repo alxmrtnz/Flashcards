@@ -8,6 +8,9 @@ export default class DeckListCard extends React.Component {
     console.log('props for deck card: ', this.props)
 
     return (
+
+
+
       <TouchableOpacity
         style={styles.deckListCard}
         // For some reason, I can only pass one property back to handle press (so i had to make it into an array in order to have more than one)
