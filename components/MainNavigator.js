@@ -5,7 +5,7 @@ import { View, StatusBar, Platform } from 'react-native'
 
 // Screens
 import DeckList from '../screens/DeckList'
-import AddEntry from '../screens/AddEntry'
+import NewDeck from '../screens/NewDeck'
 import IndividualDeck from '../screens/IndividualDeck'
 import QuizView from '../screens/QuizView'
 
@@ -27,8 +27,8 @@ const Tabs = TabNavigator({
       tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='cards-playing-outline' size={30} color={tintColor} />
     },
   },
-  AddEntry: {
-    screen: AddEntry,
+  NewDeck: {
+    screen: NewDeck,
     navigationOptions: {
       tabBarLabel: 'New Deck',
       tabBarIcon: ({ tintColor }) => <MaterialIcons name='library-add' size={30} color={tintColor} />
