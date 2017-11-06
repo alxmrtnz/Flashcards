@@ -1,13 +1,14 @@
 // NEXT STEPS: add mainnavigator into here to wrap tab nav and export that into app.js so we can navigate to a deck details view
 
 import React from 'react'
-import { View, StatusBar, Platform } from 'react-native'
+import { View, StatusBar, Platform, Text } from 'react-native'
 
 // Screens
 import DeckList from '../screens/DeckList'
 import NewDeck from '../screens/NewDeck'
 import IndividualDeck from '../screens/IndividualDeck'
 import QuizView from '../screens/QuizView'
+import AddCard from '../screens/AddCard'
 
 // Navigation
 import { TabNavigator, StackNavigator } from 'react-navigation'
@@ -24,7 +25,11 @@ const Tabs = TabNavigator({
     screen: DeckList,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='cards-playing-outline' size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='cards-playing-outline' size={30} color={tintColor} />,
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
     },
   },
   NewDeck: {
@@ -36,7 +41,13 @@ const Tabs = TabNavigator({
   },
 }, {
   navigationOptions: {
-    header: null
+    header: (
+        <View style={{backgroundColor: purple, paddingTop: 30, paddingBottom: 12}}>
+          <Text style={{color: white, fontSize: 18, textAlign: 'center', fontWeight: 'bold'}}>
+            Le Flashcard App
+          </Text>
+        </View>
+      )
   },
   tabBarOptions: {
     activeTintColor: Platform.OS === 'ios' ? purple : white,
@@ -69,6 +80,15 @@ const AppNavigation = StackNavigator({
   },
   QuizView: {
     screen: QuizView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

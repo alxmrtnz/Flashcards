@@ -39,7 +39,10 @@ class IndividualDeck extends Component {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <Button buttonAlt={true}>
+          <Button
+            buttonAlt={true}
+            onPress={() => navigation.navigate('AddCard', {deckId: deck.title})}
+          >
             Add Card
           </Button>
           <Button onPress={() => navigation.navigate('QuizView', {deckId: deck.title})}>

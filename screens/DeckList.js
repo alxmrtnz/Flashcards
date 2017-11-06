@@ -14,7 +14,15 @@ import DeckListCard from '../components/DeckListCard'
 import { fetchDecks } from '../utils/api'
 import { receiveDecks } from '../actions'
 
+// Utils
+import { purple, white } from '../utils/colors'
+
 class DeckList extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Back'
+    }
+  }
 
   state = {
     ready: false
@@ -65,6 +73,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  deckListHeader: {
+    backgroundColor: purple,
+    padding: 10
+  },
+  appTitle: {
+    color: white,
+    fontSize: 20,
+    textAlign: 'center'
+  }
 });
 
 function mapStateToProps ( decks ) {

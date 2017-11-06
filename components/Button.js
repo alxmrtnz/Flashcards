@@ -4,11 +4,11 @@ import { purple, white } from '../utils/colors'
 
 export default class Button extends React.Component {
   render() {
-    let { children, onPress, buttonAlt } = this.props
+    let { children, onPress, buttonAlt, style } = this.props
 
     return (
       <TouchableOpacity
-        style={buttonAlt ? styles.buttonAlt : styles.button}
+        style={buttonAlt ? [styles.buttonAlt, style] : [styles.button, style]}
         onPress={onPress}>
         <Text
         style={buttonAlt ? styles.buttonAltText : styles.buttonText}
