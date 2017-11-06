@@ -12,13 +12,15 @@ import MainNavigator from './components/MainNavigator'
 
 // Utils
 import { purple, white } from './utils/colors'
+import getDecks from './utils/decks'
 
+let store = createStore(reducer)
 
 export default class App extends React.Component {
 
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <View style={{flex: 1}}>
           <FlashStatusBar backgroundColor={purple} barStyle="light-content" />
           <MainNavigator />

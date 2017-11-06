@@ -13,24 +13,49 @@ class IndividualDeck extends Component {
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params
     return {
-      title: `Deck: ${deckId}`
+      title: deckId
     }
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
-    const { decks, deck } = this.props
-    // const { deckId } = navigation.state.params
+    let { decks, navigation } = this.props
+    let { deckId } = navigation.state.params
 
-    console.log('props for detail: ', this.props)
-    // console.log('decks: ', decks[deckId])
+    // HAVING AN ISSUE HERE BETWEEN LAPTOP AND PHONE DATA STORAGE
+    // For some reason, AsyncStorage on my MacBook's simulator is stroing
+    // data as the following (with string titles for IDs - I want it like this):
+    /*
+      {
+        React: {
+          questions : (2) [{…}, {…}]
+          title : "React"
+        }
+        Javascript: {
+          questions : (1) [{…}]
+          title : "Javascript"
+        }
+      }
+    /*
 
-    // let currentDeck = Object.keys(decks).filter(function(deck, index) {
-    //    myObject[key] *= 2;
-    // });
+    // For some reason, my iPhone's asyncstorage is storing
+    // the data as the following (numbers instead of string titles for IDs):
+    /*
+      {
+        0: {
+          questions : (2) [{…}, {…}]
+          title : "React"
+        }
+        1: {
+          questions : (1) [{…}]
+          title : "Javascript"
+        }
+      }
+    */
+    // I don't know what is causing this, but it's leading to the code breaking
+    // on my phone (I mainly developed this using the simulator, so I'd rather keep
+    // my code the way it is if possible)
+
+    let deck = decks[deckId]
 
     return (
       <View style={styles.container}>
@@ -45,10 +70,13 @@ class IndividualDeck extends Component {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <Button>
+          <Button
+            buttonAlt={true}
+            onPress={() => navigation.navigate('AddCard', {deckId: deck.title})}
+          >
             Add Card
           </Button>
-          <Button buttonAlt={true}>
+          <Button onPress={() => navigation.navigate('QuizView', {deckId: deck.title})}>
             Start Quiz
           </Button>
         </View>
@@ -61,7 +89,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // justifyContent: 'space-between'
   },
   button: {
     padding: 10,
@@ -83,31 +110,22 @@ const styles = StyleSheet.create({
   },
   deckInfo: {
     flex: 3,
+    justifyContent: 'center'
   },
   deckInfoContent: {
     alignItems: 'center'
   },
   buttonContainer: {
     padding: 20,
-    // paddingRight: 20,
     flex: 1,
   },
 });
 
 
 function mapStateToProps (decks, { navigation }) {
-  const { deckId } = navigation.state.params
-
-  // let filteredDeck = decks.filter((deck) =>  {
-  //   return deck.title === deckId;
-  // });
-
-  console.log('ugh: ', decks[deckId])
-
   return {
     decks,
-    deckId,
-    deck: decks[deckId],
+    navigation
   }
 }
 

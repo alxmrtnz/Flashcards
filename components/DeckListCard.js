@@ -5,7 +5,6 @@ export default class DeckListCard extends React.Component {
 
   render() {
     let { title, questions, index } = this.props.item
-    console.log('props for deck card: ', this.props)
 
     return (
       <TouchableOpacity
