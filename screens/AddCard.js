@@ -14,10 +14,10 @@ import Button from '../components/Button'
 import TextButton from '../components/TextButton'
 
 // Actions
-import { addDeck, addCardToDeck } from '../actions'
+import { addDeck, addCardToDeck } from '../actions/decks'
 
 // Api
-import { submitDeck, updateDeck } from '../utils/api'
+import { submitDeck } from '../utils/api'
 
 class AddCard extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -31,6 +31,11 @@ class AddCard extends Component {
     answer: ''
   }
 
+  /**
+  * @description Function to handle input from field and update
+  * local component state
+  * @param {String} input - the new value from the input field
+  */
   handleQuestionInputChange = (input) => {
     this.setState((state) => ({
       ...state,
@@ -38,6 +43,11 @@ class AddCard extends Component {
     }))
   }
 
+  /**
+  * @description Function to handle input from field and update
+  * local component state
+  * @param {String} input - the new value from the input field
+  */
   handleAnswerInputChange = (input) => {
     this.setState((state) => ({
       ...state,
@@ -45,46 +55,39 @@ class AddCard extends Component {
     }))
   }
 
+  /**
+  * @description Function to submit a new card to a deck.
+  * This function updates the redux store, resets the component's
+  * fields and updates the AsyncStorage via an api call
+  */
   submit = () => {
     const { deckId } = this.props.navigation.state.params
     const { question, answer } = this.state
     let { decks } = this.props
 
+    // Make a copy of the deck we need to update
     let deck = {...decks[deckId]}
-    // const key = this.state.input
-    const card = { question, answer }
     const key = deckId
+    // Add the new question to the deck
+    deck.questions.push({ question, answer })
 
-    deck.questions.push(card)
-
+    // Add card to deck in Redux
     this.props.dispatch(addCardToDeck({
       [key]: deck
     }))
 
-
+    // Clear input fields
     this.setState(() => ({ question: '', answer: '' }))
 
+    // Go back to previous screen
     this.props.navigation.goBack()
 
-    console.log('updated deck? ', deck)
-    updateDeck({ deck, key })
-  }
-
-  toHome = () => {
-    console.log('to deck view!')
-    this.props.navigation.navigate('DeckList')
+    // Update AsyncStorage
+    submitDeck({ deck, key })
   }
 
   render() {
     let { question, answer } = this.state
-    let { decks } = this.props
-    const { deckId } = this.props.navigation.state.params
-
-    console.log('add card to: ', deckId)
-    console.log('DECKS: ', decks)
-    console.log('the deck we need: ', decks[deckId])
-
-
 
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>

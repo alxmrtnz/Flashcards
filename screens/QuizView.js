@@ -10,7 +10,6 @@ import TextButton from '../components/TextButton'
 // Utils
 import { purple, white, red, green } from '../utils/colors'
 
-
 class QuizView extends Component {
   static navigationOptions = () => {
     return {
@@ -28,6 +27,11 @@ class QuizView extends Component {
     questionsCorrect: 0
   }
 
+  /**
+  * @description On mount, the quiz's state is set to the
+  * deck being viewed (by using the deckId passed through
+  * navigation.state.params)
+  */
   componentDidMount() {
     const { deckId } = this.props.navigation.state.params
     const { decks } = this.props
@@ -42,6 +46,10 @@ class QuizView extends Component {
     })
   }
 
+  /**
+  * @description Function to toggle whether a question or answer
+  * is displayed
+  */
   toggleQuestionAnswer = () => {
     let { displayQuestion } = this.state
 
@@ -53,16 +61,20 @@ class QuizView extends Component {
     })
   }
 
+  /**
+  * @description Function to submit a response to a quiz question
+  * and update the number of question the user has correct
+  * @param {String} type - whether the 'Correct' or 'Incorrect'
+  * button has been pressed
+  */
   submitAnswer = (type) => {
     let { currentSlide, displayQuestion, numberOfQuestions, questionsCorrect } = this.state
 
     let newQuestionsCorrect = questionsCorrect
 
-    if (type === 'True') {
+    if (type === 'Correct') {
       newQuestionsCorrect += 1
     }
-
-    console.log(' type: ', type, 'new correct: ', newQuestionsCorrect)
 
     this.setState((state) => {
       return (currentSlide + 1) === numberOfQuestions
@@ -79,6 +91,13 @@ class QuizView extends Component {
     })
   }
 
+  /**
+  * @description Function that determines the percentage correct
+  * at the end of a quiz. It access the number of questionsCorrect
+  * and the total numberOfQuestions to determine a percentage and
+  * then returns the final screen of the quiz
+  * @returns {Object} JSX object displaying percentage correct
+  */
   getResults() {
     let { questionsCorrect, numberOfQuestions } = this.state
 
@@ -96,6 +115,10 @@ class QuizView extends Component {
     )
   }
 
+  /**
+  * @description Function that resets the QuizView's state to its
+  * initial state
+  */
   resetQuiz = () => {
     this.setState((state) => {
       return {
@@ -163,7 +186,7 @@ class QuizView extends Component {
         <View style={styles.answerButtonsContainer}>
           <TouchableOpacity
             style={styles.buttonGreen}
-            onPress={() => this.submitAnswer('True')}
+            onPress={() => this.submitAnswer('Correct')}
           >
             <Text
             style={styles.buttonText}
@@ -173,7 +196,7 @@ class QuizView extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonRed}
-            onPress={() => this.submitAnswer('False')}
+            onPress={() => this.submitAnswer('Incorrect')}
           >
             <Text
             style={styles.buttonText}

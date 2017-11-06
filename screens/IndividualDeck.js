@@ -17,14 +17,45 @@ class IndividualDeck extends Component {
     }
   }
 
-  componentDidMount() {
-
-  }
-
   render() {
-    const { decks, deck, navigation } = this.props
+    let { decks, navigation } = this.props
+    let { deckId } = navigation.state.params
 
-    console.log('deck view props: ', this.props)
+    // HAVING AN ISSUE HERE BETWEEN LAPTOP AND PHONE DATA STORAGE
+    // For some reason, AsyncStorage on my MacBook's simulator is stroing
+    // data as the following (with string titles for IDs - I want it like this):
+    /*
+      {
+        React: {
+          questions : (2) [{…}, {…}]
+          title : "React"
+        }
+        Javascript: {
+          questions : (1) [{…}]
+          title : "Javascript"
+        }
+      }
+    /*
+
+    // For some reason, my iPhone's asyncstorage is storing
+    // the data as the following (numbers instead of string titles for IDs):
+    /*
+      {
+        0: {
+          questions : (2) [{…}, {…}]
+          title : "React"
+        }
+        1: {
+          questions : (1) [{…}]
+          title : "Javascript"
+        }
+      }
+    */
+    // I don't know what is causing this, but it's leading to the code breaking
+    // on my phone (I mainly developed this using the simulator, so I'd rather keep
+    // my code the way it is if possible)
+
+    let deck = decks[deckId]
 
     return (
       <View style={styles.container}>
@@ -92,13 +123,8 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps (decks, { navigation }) {
-  const { deckId } = navigation.state.params
-  // const navigation = navigation
-
   return {
     decks,
-    deckId,
-    deck: decks[deckId],
     navigation
   }
 }

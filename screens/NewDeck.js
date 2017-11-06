@@ -13,7 +13,7 @@ import { NavigationActions } from 'react-navigation'
 import Button from '../components/Button'
 
 // Actions
-import { addDeck } from '../actions'
+import { addDeck } from '../actions/decks'
 
 // Api
 import { submitDeck } from '../utils/api'
@@ -24,16 +24,24 @@ class NewDeck extends Component {
     input: ''
   }
 
+  /**
+  * @description Function to handle input from field and update
+  * local component state
+  * @param {String} input - the new value from the input field
+  */
   handleTextChange = (input) => {
-    console.log('input: ', input)
     this.setState(() => ({
       input
     }))
   }
 
+  /**
+  * @description Function to submit a new deck to the app.
+  * This function updates the redux store, resets the component's
+  * fields, updates the AsyncStorage via an api call, and navigates
+  * back to the DeckList view
+  */
   submit = () => {
-
-    // const key = this.state.input
     const title = this.state.input
     const key = title
 
@@ -42,22 +50,19 @@ class NewDeck extends Component {
       questions: []
     }
 
-    console.log('props: ', this.props)
-
+    // Add deck to Redux store
     this.props.dispatch(addDeck({
       [key]: deck
     }))
 
+    // Clear and reset input
     this.setState(() => ({ input: '' }))
 
-    this.toHome()
-
-    submitDeck({ deck, key })
-  }
-
-  toHome = () => {
-    console.log('to home!')
+    // Go back to the DeckList
     this.props.navigation.navigate('DeckList')
+
+    // Update AsyncStorage with new deck
+    submitDeck({ deck, key })
   }
 
   render() {
@@ -70,7 +75,6 @@ class NewDeck extends Component {
             What is the title of your new deck?
           </Text>
           <TextInput
-            autoFocus
             value={input}
             style={styles.input}
             onChange={(event) => this.handleTextChange(event.nativeEvent.text)}

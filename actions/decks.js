@@ -1,9 +1,10 @@
-export const RECEIVE_DECKS = 'RECEIVE_DECKS'
-export const ADD_DECK = 'ADD_DECK'
-export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK'
+import {
+  RECEIVE_DECKS,
+  ADD_DECK,
+  ADD_CARD_TO_DECK,
+} from './types'
 
 export function receiveDecks (decks) {
-  console.log('action: ', decks)
   return {
     type: RECEIVE_DECKS,
     decks,
