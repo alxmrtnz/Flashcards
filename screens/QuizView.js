@@ -102,6 +102,8 @@ class QuizView extends Component {
     let { questionsCorrect, numberOfQuestions } = this.state
 
     let percentage = (questionsCorrect / numberOfQuestions) * 100
+    percentage = percentage.toString()
+    if(percentage.length > 3) percentage = percentage.substring(0,4);
 
     return (
       <View style={styles.questionAnswerContainer}>
@@ -109,7 +111,7 @@ class QuizView extends Component {
           Your Score:
         </Text>
         <Text style={{fontSize: 40, fontWeight: 'bold', textAlign: 'center'}}>
-          {percentage} %
+          {percentage}%
         </Text>
       </View>
     )
